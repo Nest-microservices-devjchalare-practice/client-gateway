@@ -36,8 +36,14 @@ export class ProductsController {
   }
 
   @Get()
-  getProducts(@Query() paginationDto: PaginationDto) {
-    return this.transportClient.send({ cmd: 'findAllProducts' }, paginationDto);
+  async getProducts(@Query() paginationDto: PaginationDto) {
+    try {
+      return await firstValueFrom(
+        this.transportClient.send({ cmd: 'findAllProducts' }, paginationDto),
+      );
+    } catch (error) {
+      throw new RpcException(error.message);
+    }
   }
 
   @Get(':id')
