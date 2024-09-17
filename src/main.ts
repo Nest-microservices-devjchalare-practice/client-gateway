@@ -17,6 +17,7 @@ async function clientGateway() {
   );
 
   app.useGlobalFilters(new RpcCustomExceptionFilter());
+  console.log('Hola mundo - primer cambio');
 
   await app.listen(envs.port);
   logger.log(`Client Gateway running on port ${envs.port}`);
